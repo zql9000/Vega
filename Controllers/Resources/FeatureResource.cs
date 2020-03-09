@@ -1,4 +1,4 @@
-namespace Vega.Controllers.Resources
+namespace vega.Controllers.Resources
 {
     public class FeatureResource
     {

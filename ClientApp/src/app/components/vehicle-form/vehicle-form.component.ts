@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MakeService } from 'src/services/make.service';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-form.component.css']
 })
 export class VehicleFormComponent implements OnInit {
+  public makes;
 
-  constructor() { }
+  constructor(private service: MakeService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.service.getMakes().subscribe(makes => {
+      this.makes = makes;
+    });
   }
 
 }
