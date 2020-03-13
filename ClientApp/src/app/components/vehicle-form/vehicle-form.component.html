@@ -2,13 +2,54 @@
 <form>
   <div class="form-group">
     <label for="make">Make</label>
-    <select id="make" class="form-control">
+    <select
+      id="make"
+      name="make"
+      class="form-control"
+      (change)="handleChange()"
+      [(ngModel)]="makeSelected"
+    >
       <option value=""></option>
-      <option *ngFor="let m of makes" value="{{m.id}}">{{m.name}}</option>
+      <option *ngFor="let m of makes" value="{{ m.id }}">{{ m.name }}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="model">Model</label>
-    <select id="model" class="form-control"></select>
+    <select id="model" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let m of models" value="{{ m.id }}">{{ m.name }}</option>
+    </select>
   </div>
+  <p>Is registered?</p>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="isRegistered" id="registered" value="true">
+    <label class="form-check-label" for="registered">Yes</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="isRegistered" id="notRegistered" value="false">
+    <label class="form-check-label" for="notRegistered">No</label>
+  </div>
+  <h2>Features</h2>
+  <div class="form-check" *ngFor="let feature of features">
+    <input class="form-check-input" type="checkbox" value="" id="Feature{{ feature.id }}">
+    <label class="form-check-label" for="Feature{{ feature.id }}">
+      {{ feature.name }}
+    </label>
+  </div>
+  <h2>Contact</h2>
+  <form>
+    <div class="form-group">
+      <label for="contactName">Name</label>
+      <input type="text" class="form-control" id="contactName">
+    </div>
+    <div class="form-group">
+      <label for="contactPhone">Phone</label>
+      <input type="text" class="form-control" id="contactPhone">
+    </div>
+    <div class="form-group">
+      <label for="contactEmail">Email</label>
+      <input type="email" class="form-control" id="contactEmail">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </form>
