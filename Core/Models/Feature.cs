@@ -1,6 +1,6 @@
-namespace vega.Controllers.Resources
+namespace vega.Core.Models
 {
-    public class FeatureResource
+    public class Feature
     {
         public int Id { get; set; }
         public string Name { get; set; }
