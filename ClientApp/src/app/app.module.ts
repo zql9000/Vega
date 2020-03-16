@@ -10,17 +10,15 @@ import { AppErrorHandler } from './app.error-handler';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { HomeComponent } from './components/home/home.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
-import { VehiclesComponent } from './components/vehicles/vehicles.component';
+import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
     VehicleFormComponent,
-    VehiclesComponent
+    VehiclesListComponent
   ],
   imports: [
     BrowserModule,

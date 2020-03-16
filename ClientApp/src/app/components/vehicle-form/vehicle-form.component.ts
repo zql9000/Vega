@@ -56,11 +56,11 @@ export class VehicleFormComponent implements OnInit {
           this.vehicleService.getVehicle(this.vehicle.id).subscribe(v => {
             this.setVehicle(v);
             this.populateModels();
+          },
+          error => {
+            if (error.status === 404) this.router.navigate(["/vehicles"]);
           });
         }
-      },
-      error => {
-        if (error.status === 404) this.router.navigate(["/home"]);
       }
     );
   }
@@ -110,7 +110,7 @@ export class VehicleFormComponent implements OnInit {
       this.vehicleService
         .deleteVehicle(this.vehicle.id)
         .subscribe(v => {
-            this.router.navigate(["/home"]);
+            this.router.navigate(["/vehicles"]);
         });
   }
 }
