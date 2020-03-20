@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     VehicleFormComponent,
-    VehiclesListComponent
+    VehiclesListComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

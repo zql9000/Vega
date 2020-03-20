@@ -24,7 +24,7 @@ export class VehicleService {
   }
 
   getVehicles(filter) {
-    return this.http.get<vehicle[]>('api/vehicles', { params: filter});
+    return this.http.get('api/vehicles', { params: filter});
   }
 
   getVehicle(id: number) {

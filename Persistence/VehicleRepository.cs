@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using vega.Core;
 using vega.Core.Models;
+using vega.Extensions;
 
 namespace vega.Persistence
 {
@@ -48,8 +51,10 @@ namespace vega.Persistence
             return await context.Feature.ToListAsync();
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(Filter filter)
+        public async Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery vehicleQuery)
         {
+            var result = new QueryResult<Vehicle>();
+
              var query = context.Vehicle
                 .Include(v => v.Features)
                     .ThenInclude(f => f.Feature)
@@ -57,13 +62,29 @@ namespace vega.Persistence
                     .ThenInclude(m => m.Make)
                 .AsQueryable();
             
-            if (filter.MakeId.HasValue)
-                query = query.Where(v => v.Model.Make.Id == filter.MakeId.Value);
+            if (vehicleQuery.MakeId.HasValue)
+                query = query.Where(v => v.Model.Make.Id == vehicleQuery.MakeId.Value);
 
-            if (filter.ModelId.HasValue)
-                query = query.Where(v => v.Model.Id == filter.ModelId.Value);
+            if (vehicleQuery.ModelId.HasValue)
+                query = query.Where(v => v.Model.Id == vehicleQuery.ModelId.Value);
 
-            return await query.ToListAsync();
+            var ColumnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>()
+            {
+                ["Make"] = v => v.Model.Make.Name,
+                ["Model"] = v => v.Model.Name,
+                ["ContactName"] = v => v.ContactName,
+                ["Id"] = v => v.Id
+            };
+
+            query = query.ApplyOrdering(vehicleQuery, ColumnsMap);
+
+            result.TotalItems = await query.CountAsync();
+
+            query = query.ApplyPaging(vehicleQuery);
+            
+            result.Items = await query.ToListAsync();
+
+            return result; 
         }
     }
 }
