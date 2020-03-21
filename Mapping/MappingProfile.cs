@@ -22,6 +22,7 @@ namespace vega.Mapping
                 .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Phone = v.ContactPhone, Email = v.ContactEmail}))
                 .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(f => new KeyValuePairResource { Id = f.Feature.Id, Name = f.Feature.Name})));
             CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
+            CreateMap<Photo, PhotoResource>();
 
             //De API Resource a Model
             CreateMap<SaveVehicleResource, Vehicle>()
